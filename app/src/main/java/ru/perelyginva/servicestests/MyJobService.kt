@@ -10,22 +10,30 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MyJobService : JobService() {
-    val coroutineScope = CoroutineScope(Dispatchers.Main)
+
+    companion object {
+        const val JOB_ID = 11
+    }
+
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
     override fun onStartJob(p0: JobParameters?): Boolean {
-        log("onStartCommand")
+        log("onStartJob")
+        Log.d("MyJobService", "onStartJob")
         coroutineScope.launch {
-            for (i in 0 until 100) {
-                delay(1000)
-                log("Timer $i")
+            for (page in 0 until 10) {
+                for (i in 0 until 5) {
+                    delay(1000)
+                    log("Timer $i  $page")
+                }
             }
-            jobFinished(p0,true)
+            jobFinished(p0, true)
         }
         return true
     }
 
     override fun onStopJob(p0: JobParameters?): Boolean {
-        Log.d("SERVICE_LOG", "onStopJob")
+        log("onStopJob")
         return true
     }
 
@@ -41,6 +49,7 @@ class MyJobService : JobService() {
     }
 
     private fun log(message: String) {
-        Log.d("SERVICE_LOG", "MyService: $message")
+        Log.d("SERVICE_LOG", "MyJobService : $message")
     }
+
 }

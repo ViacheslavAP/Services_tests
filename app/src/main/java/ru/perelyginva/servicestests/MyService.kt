@@ -12,7 +12,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MyService: Service() {
-    val coroutineScope = CoroutineScope(Dispatchers.Main )
+    private val coroutineScope = CoroutineScope(Dispatchers.Main )
 
     override fun onBind(p0: Intent?): IBinder? {
         TODO("Not yet implemented")
